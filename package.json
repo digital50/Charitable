@@ -14,6 +14,13 @@
     "grunt-contrib-watch": "~0.6.1",
     "grunt-wp-i18n": "~0.5.0",
     "load-grunt-tasks": "~0.2.0",
-    "matchdep": "^0.3.0"
+    "matchdep": "^0.3.0",
+    "grunt-babel": "*",
+    "babel-core": "*",
+    "babel-eslint": "*",
+    "babel-plugin-transform-object-rest-spread": "*",
+    "babel-plugin-transform-react-jsx": "*",
+    "babel-plugin-transform-runtime": "*",
+    "babel-preset-env": "*"
   }
 }

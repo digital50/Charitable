@@ -262,7 +262,7 @@ if ( ! class_exists( 'Charitable' ) ) :
 				$this->registry->register_object( Charitable_Locations::get_instance() );
 
 				if ( function_exists( 'register_block_type' ) ) {
-					$this->registry->register_object( new Charitable_Gutenberg );
+					$this->registry->register_object( new Charitable_Blocks );
 				}
 			}
 

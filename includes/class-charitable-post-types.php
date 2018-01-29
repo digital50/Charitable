@@ -107,6 +107,9 @@ if ( ! class_exists( 'Charitable_Post_Types' ) ) :
 						'show_in_nav_menus'     => true,
 						'show_in_menu'          => false,
 						'show_in_admin_bar'     => true,
+						'show_in_rest'          => true,
+						'rest_base'             => 'campaign',
+						'rest_controller_class' => 'WP_REST_Posts_Controller',
 					)
 				)
 			);
@@ -247,13 +250,16 @@ if ( ! class_exists( 'Charitable_Post_Types' ) ) :
 			);
 
 			$args = array(
-				'labels'                     => $labels,
-				'hierarchical'               => true,
-				'public'                     => true,
-				'show_ui'                    => true,
-				'show_admin_column'          => true,
-				'show_in_nav_menus'          => true,
-				'show_tagcloud'              => true,
+				'labels'                => $labels,
+				'hierarchical'          => true,
+				'public'                => true,
+				'show_ui'               => true,
+				'show_admin_column'     => true,
+				'show_in_nav_menus'     => true,
+				'show_tagcloud'         => true,
+				'show_in_rest'          => true,
+				'rest_base'             => 'campaign_category',
+				'rest_controller_class' => 'WP_REST_Terms_Controller',
 			);
 
 			register_taxonomy( 'campaign_category', array( 'campaign' ), $args );
@@ -279,13 +285,16 @@ if ( ! class_exists( 'Charitable_Post_Types' ) ) :
 			);
 
 			$args = array(
-				'labels'                     => $labels,
-				'hierarchical'               => false,
-				'public'                     => true,
-				'show_ui'                    => true,
-				'show_admin_column'          => true,
-				'show_in_nav_menus'          => true,
-				'show_tagcloud'              => true,
+				'labels'                => $labels,
+				'hierarchical'          => false,
+				'public'                => true,
+				'show_ui'               => true,
+				'show_admin_column'     => true,
+				'show_in_nav_menus'     => true,
+				'show_tagcloud'         => true,
+				'show_in_rest'          => true,
+				'rest_base'             => 'campaign_tag',
+				'rest_controller_class' => 'WP_REST_Terms_Controller',
 			);
 
 			register_taxonomy( 'campaign_tag', array( 'campaign' ), $args );
@@ -295,4 +304,4 @@ if ( ! class_exists( 'Charitable_Post_Types' ) ) :
 		}
 	}
 
-endif; // End class_exists check.
+endif;
