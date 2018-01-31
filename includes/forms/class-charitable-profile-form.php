@@ -98,7 +98,7 @@ if ( ! class_exists( 'Charitable_Profile_Form' ) ) :
 			}
 
 			$value = $this->get_user_prop_or_default( $key, $default );
-			
+
 			/**
 			 * Deprecated filter. Use the filter below instead.
 			 *
