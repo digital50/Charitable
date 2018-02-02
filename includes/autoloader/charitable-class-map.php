@@ -109,6 +109,7 @@ return array(
 "Charitable_Field_Interface" => "interfaces/interface-charitable-field.php",
 "Charitable_Fields_Interface" => "interfaces/interface-charitable-fields.php",
 "Charitable_Form_View_Interface" => "interfaces/interface-charitable-form-view.php",
+"Charitable_Gateway_Cancellable_Subscriptions_Interface" => "interfaces/interface-charitable-gateway-cancellable-subscriptions.php",
 "Charitable_Gateway_Interface" => "interfaces/interface-charitable-gateway.php",
 "Recursive_Arrayaccess" => "libraries/wp-session/class-recursive-arrayaccess.php",
 "Wp_Session_Utils" => "libraries/wp-session/class-wp-session-utils.php",

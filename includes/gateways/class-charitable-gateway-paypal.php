@@ -20,7 +20,8 @@ if ( ! class_exists( 'Charitable_Gateway_Paypal' ) ) :
 	 *
 	 * @since   1.0.0
 	 */
-	class Charitable_Gateway_Paypal extends Charitable_Gateway {
+	class Charitable_Gateway_Paypal extends Charitable_Gateway
+		implements Charitable_Gateway_Cancellable_Subscriptions_Interface {
 
 		/**
 		 * Gateway ID.
@@ -259,7 +260,7 @@ if ( ! class_exists( 'Charitable_Gateway_Paypal' ) ) :
 
 			if ( array_key_exists( 'invoice', $data ) ) {
 				$donation_key = $data['invoice'];
-			} elseif( is_array( $custom ) && array_key_exists( 'donation_key', $custom ) ) {
+			} elseif ( is_array( $custom ) && array_key_exists( 'donation_key', $custom ) ) {
 				$donation_key = $custom['donation_key'];
 			} else {
 				die( __( 'Missing Donation Key', 'charitable' ) );
@@ -421,7 +422,7 @@ if ( ! class_exists( 'Charitable_Gateway_Paypal' ) ) :
 			$data = array(
 				'cmd' => '_notify-validate',
 			);
-			
+
 			return array_merge( $data, $_POST );
 
 		}
@@ -532,8 +533,8 @@ if ( ! class_exists( 'Charitable_Gateway_Paypal' ) ) :
 		 */
 		public function get_redirect_url( $ssl_check = false, $ipn_check = false ) {
 			$paypal_uri = $this->use_ssl( $ssl_check, $ipn_check ) ? 'https://' : 'http://';
-			
-			if ( charitable_get_option( 'test_mode' ) ) { 
+
+			if ( charitable_get_option( 'test_mode' ) ) {
 				$paypal_uri .= $ipn_check ? 'ipnpb.sandbox.' : 'sandbox.';
 			} else {
 				$paypal_uri .= $ipn_check ? 'ipnpb.' : 'www.';
@@ -563,6 +564,19 @@ if ( ! class_exists( 'Charitable_Gateway_Paypal' ) ) :
 		 */
 		public static function get_gateway_id() {
 			return self::ID;
+		}
+
+		/**
+		 * Cancel a subscription in the payment gateway.
+		 *
+		 * @since  1.5.9
+		 *
+		 * @param  int $subscription_id The ID of the subscription/recurring donation.
+		 * @return boolean True if the subscription was successfully cancelled. False otherwise.
+		 */
+		public function cancel_subscription( $subscription_id ) {
+			/* @todo Handle subscription cancellation. */
+			return true;
 		}
 
 		/**
