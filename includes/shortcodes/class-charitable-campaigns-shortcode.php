@@ -32,18 +32,18 @@ if ( ! class_exists( 'Charitable_Campaigns_Shortcode' ) ) :
 		 */
 		public static function display( $atts ) {
 			$default = array(
-				'id' 		   	   => '',
-				'orderby' 		   => 'post_date',
-				'order' 		   => '',
-				'number' 		   => get_option( 'posts_per_page' ),
-				'category' 		   => '',
-				'tag' 			   => '',
+				'id'               => '',
+				'orderby'          => 'post_date',
+				'order'            => '',
+				'number'           => get_option( 'posts_per_page' ),
+				'category'         => '',
+				'tag'              => '',
 				'creator'          => '',
 				'exclude'          => '',
 				'include_inactive' => false,
-				'columns' 		   => 2,
-				'button' 		   => 'donate',
-				'responsive' 	   => 1,
+				'columns'          => 2,
+				'button'           => 'donate',
+				'responsive'       => 1,
 				'masonry'          => 0,
 			);
 

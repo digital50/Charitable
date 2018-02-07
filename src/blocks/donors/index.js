@@ -21,7 +21,7 @@ registerBlockType( 'charitable/donors', {
     icon: icon,
 
     keywords: [
-        __( 'Donator' ),
+        __( 'Donations' ),
         __( 'Charitable' ),
         __( 'Backer' )
     ],
