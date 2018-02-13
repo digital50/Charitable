@@ -38,6 +38,7 @@ return array(
 	'Charitable_General_Settings' => 'admin/settings/class-charitable-general-settings.php',
 	'Charitable_Licenses_Settings' => 'admin/settings/class-charitable-licenses-settings.php',
 	'Charitable_Settings' => 'admin/settings/class-charitable-settings.php',
+	'Charitable_Assets' => 'assets/class-charitable-assets.php',
 	'Charitable_Map' => 'autoloader/charitable-class-map.php',
 	'Charitable_Registry' => 'autoloader/class-charitable-registry.php',
 	'Charitable_Blocks' => 'blocks/class-charitable-blocks.php',

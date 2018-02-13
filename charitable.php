@@ -264,6 +264,8 @@ if ( ! class_exists( 'Charitable' ) ) :
 				if ( function_exists( 'register_block_type' ) ) {
 					$this->registry->register_object( new Charitable_Blocks );
 				}
+
+				$this->registry->register_object( new Charitable_Assets );
 			}
 
 			return $this->registry;

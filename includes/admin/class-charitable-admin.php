@@ -49,7 +49,7 @@ if ( ! class_exists( 'Charitable_Admin' ) ) :
 		protected function __construct() {
 			$this->load_dependencies();
 
-			$this->donation_actions = new Charitable_Donation_Admin_Actions;			
+			$this->donation_actions = new Charitable_Donation_Admin_Actions;
 
 			do_action( 'charitable_admin_loaded' );
 		}
@@ -83,7 +83,7 @@ if ( ! class_exists( 'Charitable_Admin' ) ) :
 			require_once( $admin_dir . 'campaigns/charitable-admin-campaign-hooks.php' );
 			require_once( $admin_dir . 'dashboard-widgets/charitable-dashboard-widgets-hooks.php' );
 			require_once( $admin_dir . 'donations/charitable-admin-donation-hooks.php' );
-			require_once( $admin_dir . 'settings/charitable-settings-admin-hooks.php' );			
+			require_once( $admin_dir . 'settings/charitable-settings-admin-hooks.php' );
 		}
 
 		/**
@@ -122,120 +122,6 @@ if ( ! class_exists( 'Charitable_Admin' ) ) :
 			}
 
 			return $this->donation_actions->do_action( $_GET['charitable_admin_action'], $_GET['object_id'] );
-		}
-
-		/**
-		 * Loads admin-only scripts and stylesheets.
-		 *
-		 * @since  1.0.0
-		 *
-		 * @return void
-		 */
-		public function admin_enqueue_scripts() {
-			if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
-				$suffix  = '';
-				$version = '';
-			} else {
-				$suffix  = '.min';
-				$version = charitable()->get_version();
-			}
-
-			$assets_dir = charitable()->get_path( 'assets', false );
-
-			/* Menu styles are loaded everywhere in the WordPress dashboard. */
-			wp_register_style(
-				'charitable-admin-menu',
-				$assets_dir . 'css/charitable-admin-menu' . $suffix . '.css',
-				array(),
-				$version
-			);
-
-			wp_enqueue_style( 'charitable-admin-menu' );
-
-			/* Admin page styles are registered but only enqueued when necessary. */
-			wp_register_style(
-				'charitable-admin-pages',
-				$assets_dir . 'css/charitable-admin-pages' . $suffix . '.css',
-				array(),
-				$version
-			);
-
-			/* The following styles are only loaded on Charitable screens. */
-			$screen = get_current_screen();
-
-			if ( ! is_null( $screen ) && in_array( $screen->id, $this->get_charitable_screens() ) ) {
-
-				wp_register_style(
-					'charitable-admin',
-					$assets_dir . 'css/charitable-admin' . $suffix . '.css',
-					array(),
-					$version
-				);
-
-				wp_enqueue_style( 'charitable-admin' );
-
-				$dependencies   = array( 'jquery-ui-datepicker', 'jquery-ui-tabs', 'jquery-ui-sortable' );
-				$localized_vars = array(
-					'suggested_amount_description_placeholder' => __( 'Optional Description', 'charitable' ),
-					'suggested_amount_placeholder'             => __( 'Amount', 'charitable' ),
-				);
-
-				if ( 'donation' == $screen->id ) {
-					wp_register_script(
-						'accounting',
-						$assets_dir . 'js/libraries/accounting'. $suffix . '.js',
-						array( 'jquery-core' ),
-						$version,
-						true
-					);
-
-					$dependencies[] = 'accounting';
-					$localized_vars = array_merge( $localized_vars, array(
-						'currency_format_num_decimals' => esc_attr( charitable_get_currency_helper()->get_decimals() ),
-						'currency_format_decimal_sep'  => esc_attr( charitable_get_currency_helper()->get_decimal_separator() ),
-						'currency_format_thousand_sep' => esc_attr( charitable_get_currency_helper()->get_thousands_separator() ),
-						'currency_format'              => esc_attr( charitable_get_currency_helper()->get_accounting_js_format() ),
-					) );
-				}
-
-				wp_register_script(
-					'charitable-admin',
-					$assets_dir . 'js/charitable-admin' . $suffix . '.js',
-					$dependencies,
-					$version,
-					false
-				);
-
-				wp_enqueue_script( 'charitable-admin' );
-
-				/**
-				 * Filter the admin Javascript vars.
-				 *
-				 * @since 1.0.0
-				 *
-				 * @param array $localized_vars The vars.
-				 */
-				$localized_vars = apply_filters( 'charitable_localized_javascript_vars', $localized_vars );
-
-				wp_localize_script( 'charitable-admin', 'CHARITABLE', $localized_vars );
-
-			}//end if
-
-			wp_register_script(
-				'charitable-admin-notice',
-				$assets_dir . 'js/charitable-admin-notice' . $suffix . '.js',
-				array( 'jquery-core' ),
-				$version,
-				false
-			);
-
-			wp_register_script(
-				'charitable-admin-media',
-				$assets_dir . 'js/charitable-admin-media' . $suffix . '.js',
-				array( 'jquery-core' ),
-				$version,
-				false
-			);
 		}
 
 		/**
@@ -460,6 +346,33 @@ if ( ! class_exists( 'Charitable_Admin' ) ) :
 				'edit-donation',
 				'dashboard',
 			) );
+		}
+
+		/**
+		 * Checks whether the current screen is a Charitable screen.
+		 *
+		 * @since  1.6.0
+		 *
+		 * @return boolean
+		 */
+		public function is_charitable_screen() {
+			$screen = get_current_screen();
+
+			return ! is_null( $screen ) && in_array( $screen->id, $this->get_charitable_screens() );
+		}
+
+		/**
+		 * Checks whether this is the specific passed screen.
+		 *
+		 * @since  1.6.0
+		 *
+		 * @param  string $screen The screen to test.
+		 * @return boolean
+		 */
+		public function is_screen( $screen ) {
+			$current = get_current_screen();
+
+			return ! is_null( $current ) && $screen == $current->id;
 		}
 	}
 
